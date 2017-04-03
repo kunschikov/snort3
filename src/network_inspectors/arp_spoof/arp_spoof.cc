@@ -214,7 +214,8 @@ void ArpSpoof::eval(Packet* p)
                 "MODNAME: Ethernet/ARP mismatch reply src\n");
         }
         else if (memcmp((u_char*)eh->ether_dst,
-            (u_char*)ah->arp_tha, 6) != 0)
+            (u_char*)ah->arp_tha, 6) != 0 && (memcmp((u_char*)eh->ether_dst, (u_char*)bcast, 6) != 0)
+                      )
         {
             SnortEventqAdd(GID_ARP_SPOOF,
                 ARPSPOOF_ETHERFRAME_ARP_MISMATCH_DST);
